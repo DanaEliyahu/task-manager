@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { TaskStoreContext } from "../index";
 
 import "./create-task.css";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, Paper } from "@material-ui/core";
 
 const CreateTask = () => {
   const taskStore = useContext(TaskStoreContext);
@@ -30,8 +30,8 @@ const CreateTask = () => {
   };
 
   return (
-    <div className="create-task">
-      <h3>Create Task</h3>
+    <Paper className="create-task">
+      <h2>Create Task</h2>
       <form className="form" onSubmit={handleSubmit} autoComplete="off">
         <TextField
           label="Description"
@@ -51,8 +51,9 @@ const CreateTask = () => {
         <Button type="submit" variant="contained" color="primary">
           Add
         </Button>
+        <h2>Fix Validation!</h2>
       </form>
-    </div>
+    </Paper>
   );
 }
 

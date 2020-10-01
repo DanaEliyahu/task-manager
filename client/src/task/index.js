@@ -8,7 +8,7 @@ const Task = props => {
   return (
     <Card className="card">
       <CardContent className="card-content">
-        <Typography component="h6" variant="h6" className="task-text">
+        <Typography component="h6" variant="h6" className="task-description">
           {task.description}
         </Typography>
         <img src={task.image} alt="" width="100" height="100"/>

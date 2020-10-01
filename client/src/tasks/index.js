@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useObserver } from "mobx-react";
-import "./tasks.css";
 import { TaskStoreContext } from "../index";
 import Task from '../task';
-import { Button } from "@material-ui/core";
+import "./tasks.css";
+import { Button, Paper } from "@material-ui/core";
 
 const Tasks = () => {
   const taskStore = useContext(TaskStoreContext);
@@ -19,17 +19,19 @@ const Tasks = () => {
   }, [loadBySession]);
 
   return useObserver(() => (
-    <div className="tasks">
-      <h3 className="header">All Tasks</h3>
-      <Button type="submit" variant="contained" color="primary" onClick={() => setLoadBySession(!loadBySession)}>
-         { loadBySession ? "Show All Tasks" : "Show Only Your Tasks"} 
-      </Button>
-      <div className="list">
+    <Paper className="tasks">
+      <div className="headers">
+        <h2>All Tasks</h2>
+        <Button type="submit" variant="contained" color="primary" onClick={() => setLoadBySession(!loadBySession)}>
+          { loadBySession ? "Show All Tasks" : "Show Only Your Tasks"} 
+        </Button>
+      </div>
+      <div>
         {taskStore.tasks.map((task) => (
           <Task task={task} key={task.id}></Task>
         ))}
       </div>
-    </div>
+    </Paper>
   ));
 }
 

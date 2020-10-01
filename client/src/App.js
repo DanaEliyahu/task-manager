@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
 import CreateTask from './create-task';
 import Tasks from './tasks';
+import './App.css';
 
 const App = () => {
   return (

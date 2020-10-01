@@ -1,7 +1,7 @@
 import { decorate, observable, action } from "mobx";
-import api from "../api";
 import Cookies from 'js-cookie';
 import { v4 as uuidv4 } from 'uuid';
+import api from "../api";
 
 class TaskStore {
   constructor () {
