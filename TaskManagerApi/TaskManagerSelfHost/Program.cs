@@ -9,7 +9,6 @@ namespace TaskManagerSelfHost
         {
             string baseAddress = "http://localhost:9000/";
 
-            // Start OWIN host 
             using (WebApp.Start<Startup>(url: baseAddress))
             {
                 Console.WriteLine("Server is running, Press any key to quit");

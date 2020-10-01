@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TaskManagerSelfHost.Models;
@@ -26,13 +27,18 @@ namespace TaskManagerSelfHost.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody]TaskViewModel taskViewModel)
         {
-            var newTask = new TaskModel() 
-            { 
-                Id = Guid.NewGuid(), 
-                Description = taskViewModel.Description, 
-                Image = taskViewModel.Image, 
-                SessionId = taskViewModel.SessionId 
+            var newTask = new TaskModel()
+            {
+                Id = Guid.NewGuid(),
+                Description = taskViewModel.Description,
+                Image = taskViewModel.Image,
             };
+
+            var cookie = Request.Headers.GetCookies("Session").FirstOrDefault();
+            if (cookie != null)
+            {
+                newTask.SessionId = Guid.Parse(cookie["Session"].Value);
+            }
 
             Data.Instance.Tasks.Add(newTask);
             

@@ -25,10 +25,9 @@ namespace TaskManagerSelfHost
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-
-            var corsAttr = new EnableCorsAttribute("http://localhost:3000", "*", "*");
-            config.EnableCors(corsAttr);
-
+            
+            config.EnableCors(new EnableCorsAttribute("http://localhost:3000", "*", "*") { SupportsCredentials = true });
+           
             appBuilder.UseWebApi(config);
         }
     }

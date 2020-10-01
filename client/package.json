@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:9000/",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -14,7 +13,8 @@
     "mobx-react": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

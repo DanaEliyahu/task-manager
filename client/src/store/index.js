@@ -1,9 +1,26 @@
 import { decorate, observable, action } from "mobx";
 import api from "../api";
+import Cookies from 'js-cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 class TaskStore {
+  constructor () {
+    if (!Cookies.get("Session")) {
+      Cookies.set("Session", uuidv4());
+    }
+  }
+
   tasks = [];
-  async initTasks() {
+  async initTasksBySession() {
+    try {
+      const response = await api.get(`/tasks/${Cookies.get("Session")}`);
+      this.tasks = response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async initAllTasks () {
     try {
       const response = await api.get('/tasks');
       this.tasks = response.data;
@@ -25,8 +42,10 @@ class TaskStore {
 decorate(TaskStore, {
   tasks: observable,
   addTask: action,
+  initAllTasks: action,
+  initTasksBySession: action
 });
 
 const taskStoreInstance = new TaskStore();
-taskStoreInstance.initTasks();
+taskStoreInstance.initTasksBySession();
 export default taskStoreInstance;
