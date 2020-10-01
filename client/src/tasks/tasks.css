@@ -1,0 +1,15 @@
+.header {
+  align-self: center;
+}
+
+.tasks {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  flex:1;
+  flex-direction: column;
+}

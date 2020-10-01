@@ -1,0 +1,13 @@
+.card {
+  margin: 5px;
+}
+
+.card-content{ 
+  display: flex;
+  flex:1;
+}
+
+.task-text {
+  display: flex;
+  flex:1;
+}

@@ -1,0 +1,17 @@
+.create-task {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.image-size {
+  width: 150px;
+  height: 150px;
+}
