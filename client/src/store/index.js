@@ -4,16 +4,21 @@ import { v4 as uuidv4 } from 'uuid';
 import api from "../api";
 
 class TaskStore {
+  tasks = [];
+  sessionId = "";
+
   constructor () {
-    if (!Cookies.get("Session")) {
-      Cookies.set("Session", uuidv4());
+    this.sessionId = Cookies.get("Session");
+    if (!this.sessionId) {
+      this.sessionId = uuidv4();
+      Cookies.set("Session", this.sessionId);
     }
   }
 
-  tasks = [];
+  // TODO: get cookie in the server
   async initTasksBySession() {
     try {
-      const response = await api.get(`/tasks/${Cookies.get("Session")}`);
+      const response = await api.get(`/tasks/${this.sessionId}`);
       this.tasks = response.data;
     } catch (error) {
       console.log(error);

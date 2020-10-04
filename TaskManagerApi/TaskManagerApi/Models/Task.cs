@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TaskManagerSelfHost.Models
+namespace TaskManagerApi.Models
 {
     public class Task
     {

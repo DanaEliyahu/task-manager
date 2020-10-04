@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TaskModel = TaskManagerSelfHost.Models.Task;
+using TaskModel = TaskManagerApi.Models.Task;
 
-namespace TaskManagerSelfHost.Models
+// There is no db so this is 'db' for the app
+namespace TaskManagerApi.Models
 {
     public sealed class Data
     {

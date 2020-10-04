@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaskModel = TaskManagerSelfHost.Models.Task;
+using TaskModel = TaskManagerApi.Models.Task;
 
-namespace TaskManagerSelfHost.ViewModels
+namespace TaskManagerApi.ViewModels
 {
     public class TaskViewModel
     {

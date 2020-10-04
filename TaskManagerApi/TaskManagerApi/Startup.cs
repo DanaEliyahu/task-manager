@@ -5,18 +5,15 @@ using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace TaskManagerSelfHost
+namespace TaskManagerApi
 {
     public class Startup
     {
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = new HttpConfiguration();
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            // TODO : check if we can remove
+  
 
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
@@ -25,9 +22,9 @@ namespace TaskManagerSelfHost
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-            
-            config.EnableCors(new EnableCorsAttribute("http://localhost:3000", "*", "*") { SupportsCredentials = true });
-           
+
+            config.MapHttpAttributeRoutes();
+
             appBuilder.UseWebApi(config);
         }
     }

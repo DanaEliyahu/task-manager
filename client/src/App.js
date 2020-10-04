@@ -6,8 +6,8 @@ import './App.scss';
 const App = () => {
   return (
     <div className="App">
-      <CreateTask></CreateTask>
-      <Tasks></Tasks>
+      <CreateTask />
+      <Tasks />
     </div>
   );
 }

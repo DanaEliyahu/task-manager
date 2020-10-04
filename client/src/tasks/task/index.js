@@ -2,9 +2,7 @@ import React from "react";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import "./task.scss";
 
-const Task = props => {
-  const {task} = props;
-
+const Task = ({task}) => {
   return (
     <Card className="card">
       <CardContent className="card-content">

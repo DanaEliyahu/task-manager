@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useObserver } from "mobx-react";
 import { TaskStoreContext } from "../index";
-import Task from "../task";
+import Task from "./task";
+
 import "./tasks.scss";
 import { Paper, Button } from "@material-ui/core";
 
@@ -15,7 +16,7 @@ const Tasks = () => {
     } else {
       taskStore.initTasksBySession();
     }
-  }, [loadBySession]);
+  }, [loadBySession, taskStore]);
 
   return useObserver(() => (
     <Paper className={taskStore.tasks.length ? 'tasks' : 'empty-list'}>
@@ -37,7 +38,7 @@ const Tasks = () => {
       </div>
       <div>
         {taskStore.tasks.map((task) => (
-          <Task task={task} key={task.id}></Task>
+          <Task task={task} key={task.id}/>
         ))}
       </div>
     </Paper>

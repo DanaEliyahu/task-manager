@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin.Hosting;
 using System;
+using TaskManagerApi;
 
 namespace TaskManagerSelfHost
 {

@@ -13,12 +13,9 @@ const CreateTask = () => {
   const [imageName, setImageName] = useState("");
   const imageInputRef = React.useRef();
 
+  // Tried to use material ui error, stuck with on load error.
   const onDescriptionChanged = (e) => {
-    if (!e.target.value) {
-      setDescriptionError(true);
-    } else {
-      setDescriptionError(false);
-    }
+    setDescriptionError(!e.target.value);
     setDescription(e.target.value);
   };
 
@@ -29,9 +26,9 @@ const CreateTask = () => {
     imageInputRef.current.value = "";
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async (e) => {
     e.preventDefault();
-    taskStore.addTask({ description, image });
+    await taskStore.addTask({ description, image });
     emptyFields();
   };
 
