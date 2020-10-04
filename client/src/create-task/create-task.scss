@@ -3,18 +3,22 @@
   flex: 1;
   flex-direction: column;
   align-items: center;
-  margin: 20px 10px 5px 0;
+  margin: 5px;
 }
 
 .form {
   display: flex;
   flex: 0.4;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   justify-content: space-between;
 }
 
-.image-size {
-  width: 150px;
-  height: 150px;
+.image-upload-input {
+  display: flex;
+}
+
+.image-name {
+  align-self: center;
+  margin-left: 10px;
 }

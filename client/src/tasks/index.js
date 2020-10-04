@@ -3,7 +3,7 @@ import { useObserver } from "mobx-react";
 import { TaskStoreContext } from "../index";
 import Task from "../task";
 import "./tasks.scss";
-import { Button, Paper } from "@material-ui/core";
+import { Paper, Button } from "@material-ui/core";
 
 const Tasks = () => {
   const taskStore = useContext(TaskStoreContext);
@@ -24,9 +24,9 @@ const Tasks = () => {
           !taskStore.tasks.length ? (
             <h2>No Tasks Yet...</h2>
           ) : (
-          <>
             <h2>All Tasks</h2>
-            <Button
+        )}
+        <Button
               type="submit"
               variant="contained"
               color="primary"
@@ -34,8 +34,6 @@ const Tasks = () => {
             >
               {loadBySession ? "Show All Tasks" : "Show Only Your Tasks"}
             </Button>
-          </>
-        )}
       </div>
       <div>
         {taskStore.tasks.map((task) => (
