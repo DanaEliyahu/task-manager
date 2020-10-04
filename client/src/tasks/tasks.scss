@@ -1,8 +1,13 @@
-.tasks {
+.tasks, .empty-list {
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin: 5px;
+  overflow: auto;
+  margin: 20px 0 5px 0;
+}
+
+.empty-list {
+  justify-content: center;
 }
 
 .headers {

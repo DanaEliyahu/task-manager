@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useObserver } from "mobx-react";
 import { TaskStoreContext } from "../index";
-import Task from '../task';
-import "./tasks.css";
+import Task from "../task";
+import "./tasks.scss";
 import { Button, Paper } from "@material-ui/core";
 
 const Tasks = () => {
@@ -12,19 +12,30 @@ const Tasks = () => {
   useEffect(() => {
     if (!loadBySession) {
       taskStore.initAllTasks();
-    }
-    else {
+    } else {
       taskStore.initTasksBySession();
     }
   }, [loadBySession]);
 
   return useObserver(() => (
-    <Paper className="tasks">
+    <Paper className={taskStore.tasks.length ? 'tasks' : 'empty-list'}>
       <div className="headers">
-        <h2>All Tasks</h2>
-        <Button type="submit" variant="contained" color="primary" onClick={() => setLoadBySession(!loadBySession)}>
-          { loadBySession ? "Show All Tasks" : "Show Only Your Tasks"} 
-        </Button>
+        {
+          !taskStore.tasks.length ? (
+            <h2>No Tasks Yet...</h2>
+          ) : (
+          <>
+            <h2>All Tasks</h2>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={() => setLoadBySession(!loadBySession)}
+            >
+              {loadBySession ? "Show All Tasks" : "Show Only Your Tasks"}
+            </Button>
+          </>
+        )}
       </div>
       <div>
         {taskStore.tasks.map((task) => (
@@ -33,6 +44,6 @@ const Tasks = () => {
       </div>
     </Paper>
   ));
-}
+};
 
 export default Tasks;

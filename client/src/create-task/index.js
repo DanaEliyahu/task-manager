@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TaskStoreContext } from "../index";
 
-import "./create-task.css";
+import "./create-task.scss";
 import { Button, TextField, Paper } from "@material-ui/core";
 
 const CreateTask = () => {
@@ -10,12 +10,16 @@ const CreateTask = () => {
   const [image, setImage] = useState({});
   const imageInputRef = React.useRef();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    taskStore.addTask({ description, image });
+  const emptyFields = () => {
     setDescription("");
     setImage(null);
     imageInputRef.current.value = "";
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    taskStore.addTask({ description, image });
+    emptyFields();
   };
 
   const handleChangeImage = (e) => {
@@ -51,7 +55,6 @@ const CreateTask = () => {
         <Button type="submit" variant="contained" color="primary">
           Add
         </Button>
-        <h2>Fix Validation!</h2>
       </form>
     </Paper>
   );
