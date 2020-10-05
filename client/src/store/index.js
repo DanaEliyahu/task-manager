@@ -5,33 +5,28 @@ import api from "../api";
 
 class TaskStore {
   tasks = [];
-  sessionId = "";
 
   constructor () {
-    this.sessionId = Cookies.get("Session");
-    if (!this.sessionId) {
-      this.sessionId = uuidv4();
-      Cookies.set("Session", this.sessionId);
+    if (!Cookies.get("Session")) {
+      Cookies.set("Session", uuidv4());
     }
   }
 
-  // TODO: get cookie in the server
-  async initTasksBySession() {
+  async initTasks (url) {
     try {
-      const response = await api.get(`/tasks/${this.sessionId}`);
+      const response = await api.get(url);
       this.tasks = response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error) {   
+      throw error;
     }
+  }
+
+  async initTasksBySession() {
+    await this.initTasks('/tasks/bySession');
   }
 
   async initAllTasks () {
-    try {
-      const response = await api.get('/tasks');
-      this.tasks = response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    await this.initTasks('/tasks');
   }
 
   async addTask(task) {
@@ -39,7 +34,7 @@ class TaskStore {
       const response = await api.post("/tasks", task);
       this.tasks.push(response.data);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 }

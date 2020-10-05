@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TaskManagerApi.Models;
@@ -9,7 +12,8 @@ using TaskModel = TaskManagerApi.Models.Task;
 
 namespace TaskManagerApi.Controllers
 {
-    // The usage of asynchronous actions is redundant in this case because there is no Db
+    // The usage of async here is redundant because there is no call to a database or a cache
+    // but normally this is the expected usage
     [RoutePrefix("api/tasks")]
     public class TasksController : ApiController
     {
@@ -19,10 +23,17 @@ namespace TaskManagerApi.Controllers
             return Ok(Data.Instance.Tasks.Select(x => new TaskViewModel(x)));
         }
 
-        [HttpGet, Route("{id}")]
-        public async Task<IHttpActionResult> GetBySessionId(Guid id)
+        [HttpGet, Route("bySession")]
+        public async Task<IHttpActionResult> GetBySessionId()
         {
-            return Ok(Data.Instance.Tasks.Where(x => x.SessionId == id).Select(x => new TaskViewModel(x)));
+            var cookie = GetCookie();
+            
+            var tasks = cookie == null 
+                ? new List<TaskViewModel>()
+                : Data.Instance.Tasks.Where(x => x.SessionId == Guid.Parse(cookie["Session"].Value))
+                .Select(x => new TaskViewModel(x)).ToList();
+
+            return Ok(tasks);
         }
 
         [HttpPost, Route]
@@ -46,15 +57,21 @@ namespace TaskManagerApi.Controllers
                 Image = taskViewModel.Image,
             };
 
-            var cookie = Request.Headers.GetCookies("Session").FirstOrDefault();
-            if (cookie != null)
+            var cookie = GetCookie();
+            if (cookie == null)
             {
-                newTask.SessionId = Guid.Parse(cookie["Session"].Value);
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "User has no session"));
             }
 
-            // TODO: If no cookie, exception
+            newTask.SessionId = Guid.Parse(cookie["Session"].Value);
 
             return newTask;
+        }
+
+        private CookieHeaderValue GetCookie()
+        {
+            return Request.Headers.GetCookies("Session").FirstOrDefault();
         }
 
         private void EnsureTask(TaskViewModel taskViewModel)
@@ -62,13 +79,13 @@ namespace TaskManagerApi.Controllers
             if (string.IsNullOrWhiteSpace(taskViewModel.Description))
             {
                 throw new HttpResponseException(
-                    Request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "Description is empty"));
+                    Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Description is empty"));
             }
 
             if (string.IsNullOrWhiteSpace(taskViewModel.Image))
             {
                 throw new HttpResponseException(
-                    Request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "Image is empty"));
+                    Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Image is empty"));
             }
         }
     }

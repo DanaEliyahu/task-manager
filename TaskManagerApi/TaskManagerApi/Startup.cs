@@ -12,8 +12,8 @@ namespace TaskManagerApi
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = new HttpConfiguration();
-            // TODO : check if we can remove
-  
+            
+            config.MapHttpAttributeRoutes();
 
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
@@ -22,8 +22,6 @@ namespace TaskManagerApi
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-
-            config.MapHttpAttributeRoutes();
 
             appBuilder.UseWebApi(config);
         }

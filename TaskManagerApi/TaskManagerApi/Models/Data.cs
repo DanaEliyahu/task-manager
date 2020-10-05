@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TaskModel = TaskManagerApi.Models.Task;
 
-// There is no db so this is 'db' for the app
+// Since there is no db, this is a singelton representing the Db.
 namespace TaskManagerApi.Models
 {
     public sealed class Data

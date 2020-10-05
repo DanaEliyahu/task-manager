@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin.Hosting;
 using System;
+using System.Configuration;
 using TaskManagerApi;
 
 namespace TaskManagerSelfHost
@@ -8,7 +9,7 @@ namespace TaskManagerSelfHost
     {
         static void Main(string[] args)
         {
-            string baseAddress = "http://localhost:9000/";
+            string baseAddress = ConfigurationManager.AppSettings["ServerAddress"];
 
             using (WebApp.Start<Startup>(url: baseAddress))
             {
