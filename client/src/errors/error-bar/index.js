@@ -3,7 +3,7 @@ import React from 'react';
 import Alert from "../alert";
 
 const ErrorBar = ({openErrorBar, setOpenErrorBar, errorMessage}) => {
-  const handleCloseBar = (event, reason) => {
+  const handleCloseBar = reason => {
     if (reason === 'clickaway') {
       return;
     }
@@ -16,7 +16,7 @@ const ErrorBar = ({openErrorBar, setOpenErrorBar, errorMessage}) => {
         open={openErrorBar}
         autoHideDuration={6000}
         onClose={handleCloseBar}>
-        <Alert onClose={handleCloseBar} severity="error">
+        <Alert onClose={() => setOpenErrorBar(false)} severity="error">
           {errorMessage}
         </Alert>
       </Snackbar>

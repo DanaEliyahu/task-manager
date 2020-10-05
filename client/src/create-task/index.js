@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { TaskStoreContext } from "../index";
 import ImageInput from './image-input';
-import ErrorBar from '../error-bar';
+import ErrorBar from '../errors/error-bar';
+import generalError from '../errors/general-error';
 
 import "./create-task.scss";
 import { Button, TextField, Paper } from "@material-ui/core";
@@ -36,7 +37,7 @@ const CreateTask = () => {
       emptyFields();
     }
     catch (error) {
-      setErrorMessage(error?.response?.data?.message || "An Error Has Occured");
+      setErrorMessage(error?.response?.data?.message || generalError);
       setOpenErrorBar(true);
     }
   };

@@ -2,10 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { useObserver } from "mobx-react";
 import { TaskStoreContext } from "../index";
 import Task from "./task";
+import ErrorBar from "../errors/error-bar";
+import generalError from "../errors/general-error";
 
 import "./tasks.scss";
 import { Paper, Button, CircularProgress } from "@material-ui/core";
-import ErrorBar from '../error-bar';
 
 const Tasks = () => {
   const taskStore = useContext(TaskStoreContext);
@@ -23,22 +24,21 @@ const Tasks = () => {
         } else {
           await taskStore.initAllTasks();
         }
-      }
-      catch (error) {
-        setErrorMessage(error?.response?.data?.message || "An Error Has Occured");
+      } catch (error) {
+        setErrorMessage(error?.response?.data?.message || generalError);
         setOpenErrorBar(true);
       }
-      
+
       setLoading(false);
     };
     loadTasks();
   }, [loadBySession, taskStore]);
 
   const renderHeader = () => {
-    return !taskStore.tasks.length ? 
-      <h2>No Tasks Yet...</h2> : 
-      <h2>All Tasks</h2>
-  }
+    return !taskStore.tasks.length 
+      ? <h2>No Tasks Yet...</h2>
+      : <h2>All Tasks</h2>
+  };
 
   const renderTasks = () => {
     if (loading) {
@@ -53,8 +53,7 @@ const Tasks = () => {
             type="submit"
             variant="contained"
             color="primary"
-            onClick={() => setLoadBySession(!loadBySession)}
-          >
+            onClick={() => setLoadBySession(!loadBySession)}>
             {loadBySession ? "Show All Tasks" : "Show Only Your Tasks"}
           </Button>
         </div>
@@ -69,13 +68,15 @@ const Tasks = () => {
 
   return useObserver(() => (
     <>
-    <Paper className={taskStore.tasks.length && !loading ? "tasks" : "empty-list"}>
-      {renderTasks()}
-    </Paper>
-    <ErrorBar openErrorBar={openErrorBar} 
-              setOpenErrorBar={setOpenErrorBar}
-              errorMessage={errorMessage}/>
-  </>
+      <Paper className={loading || !taskStore.tasks.length ? "empty-list" : "tasks"}>
+        {renderTasks()}
+      </Paper>
+      <ErrorBar
+        openErrorBar={openErrorBar}
+        setOpenErrorBar={setOpenErrorBar}
+        errorMessage={errorMessage}
+      />
+    </>
   ));
 };
 
