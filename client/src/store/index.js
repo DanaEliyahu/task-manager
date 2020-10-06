@@ -47,5 +47,4 @@ decorate(TaskStore, {
 });
 
 const taskStoreInstance = new TaskStore();
-taskStoreInstance.initTasksBySession();
 export default taskStoreInstance;
