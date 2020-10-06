@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using TaskManagerApi.Models;
 using TaskManagerApi.ViewModels;
 using TaskModel = TaskManagerApi.Models.Task;
 

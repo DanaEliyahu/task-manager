@@ -13,7 +13,7 @@ namespace TaskManagerSelfHost
 
             using (WebApp.Start<Startup>(url: baseAddress))
             {
-                Console.WriteLine("Server is running, Press any key to quit");
+                Console.WriteLine($"Server is running at {baseAddress}");
                 Console.ReadLine();
             }
         }
