@@ -1,6 +1,6 @@
 import React from 'react';
-import CreateTask from './create-task';
-import Tasks from './tasks';
+import CreateTask from './components/CreateTask';
+import Tasks from './components/Tasks';
 import './App.scss';
 
 const App = () => {

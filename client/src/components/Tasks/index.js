@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useObserver } from "mobx-react";
-import { TaskStoreContext } from "../index";
-import Task from "./task";
-import ErrorBar from "../errors/error-bar";
-import generalError from "../errors/general-error";
+import { TaskStoreContext } from "../../index";
+import Task from "./Task";
+import ErrorBar from "../ErrorBar";
+import generalError from "../../consts/general-error";
 
-import "./tasks.scss";
+import "./index.scss";
 import { Paper, Button, CircularProgress } from "@material-ui/core";
 
 const Tasks = () => {
@@ -25,7 +25,7 @@ const Tasks = () => {
           await taskStore.initAllTasks();
         }
       } catch (error) {
-        setErrorMessage(error?.response?.data?.message || generalError);
+        setErrorMessage(error.response?.data?.message || generalError);
         setOpenErrorBar(true);
       }
 

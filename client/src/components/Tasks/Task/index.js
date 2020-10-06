@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@material-ui/core";
-import "./task.scss";
+import "./index.scss";
 
 const Task = ({task}) => {
   return (

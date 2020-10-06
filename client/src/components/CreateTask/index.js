@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import { TaskStoreContext } from "../index";
-import ImageInput from './image-input';
-import ErrorBar from '../errors/error-bar';
-import generalError from '../errors/general-error';
+import { TaskStoreContext } from "../../index";
+import ImageInput from './ImageInput';
+import ErrorBar from '../ErrorBar';
+import generalError from '../../consts/general-error';
 
-import "./create-task.scss";
+import "./index.scss";
 import { Button, TextField, Paper } from "@material-ui/core";
 
 const CreateTask = () => {
@@ -29,7 +29,7 @@ const CreateTask = () => {
     setImageName("");
   };
 
-  const handleSubmit =  async (e) => {
+  const handleSubmit =  async e => {
     e.preventDefault();
     
     try {
@@ -37,7 +37,7 @@ const CreateTask = () => {
       emptyFields();
     }
     catch (error) {
-      setErrorMessage(error?.response?.data?.message || generalError);
+      setErrorMessage(error.response?.data?.message || generalError);
       setOpenErrorBar(true);
     }
   };
@@ -63,7 +63,8 @@ const CreateTask = () => {
     </Paper>
     <ErrorBar openErrorBar={openErrorBar} 
               setOpenErrorBar={setOpenErrorBar} 
-              errorMessage={errorMessage}/>
+              errorMessage={errorMessage}
+    />
     </>
   );
 };

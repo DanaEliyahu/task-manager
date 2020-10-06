@@ -12,7 +12,7 @@ using TaskModel = TaskManagerApi.Models.Task;
 namespace TaskManagerApi.Controllers
 {
     // The usage of async here is redundant because there is no call to a database or a cache
-    // but normally this is the expected usage
+    // but normally this is will be the expected usage
     [RoutePrefix("api/tasks")]
     public class TasksController : ApiController
     {

@@ -1,13 +1,9 @@
 import Snackbar from "@material-ui/core/Snackbar";
 import React from 'react';
-import Alert from "../alert";
+import Alert from "./Alert";
 
-const ErrorBar = ({openErrorBar, setOpenErrorBar, errorMessage}) => {
-  const handleCloseBar = reason => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+const ErrorBar = ({ openErrorBar, setOpenErrorBar, errorMessage }) => {
+  const handleCloseBar = () => {
     setOpenErrorBar(false);
   };
 
@@ -16,7 +12,7 @@ const ErrorBar = ({openErrorBar, setOpenErrorBar, errorMessage}) => {
         open={openErrorBar}
         autoHideDuration={6000}
         onClose={handleCloseBar}>
-        <Alert onClose={() => setOpenErrorBar(false)} severity="error">
+        <Alert onClose={handleCloseBar} severity="error">
           {errorMessage}
         </Alert>
       </Snackbar>

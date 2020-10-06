@@ -1,5 +1,5 @@
 import React from "react";
-import "./image-input.scss";
+import "./index.scss";
 import { Button } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
